@@ -219,6 +219,13 @@ function viewContact() {
     console.log(`The person are ${searchResultList}`)
 }
 
+//method to count contact
+function countContactByPlace() {
+    let searchResultList = search()
+    let numberOfContact = searchResultList.reduce(numberOfContact => numberOfContact+1,0)
+    console.log("Number of contacts are "+numberOfContact);
+}
+
 // Main method 
 const ADD_CONTACT = 1
 const DISPLAY_CONTACT = 2
@@ -227,7 +234,8 @@ const DELETE_CONTACT = 4
 const COUNT_CONTACT = 5
 const SEARCH_CONTACT = 6
 const VIEW_CONTACT = 7
-const EXIT = 8
+const COUNT_CONTACT_BY_PLACE = 8
+const EXIT = 9
 let addressBook  = new Array()
 console.log("Welcome to address book");
 let isExit = false
@@ -239,7 +247,8 @@ while (!isExit) {
     console.log("5 Count Contact");
     console.log("6 Search Contact by city or state");
     console.log("7 View Contact by city or state");
-    console.log("8 Exit");
+    console.log("8 Count Contact by city or state");
+    console.log("9 Exit");
     let choice = prompt("Enter your choice ")
     switch (Number(choice)) {
         case ADD_CONTACT:
@@ -267,6 +276,9 @@ while (!isExit) {
             break;
         case VIEW_CONTACT:
             viewContact()
+            break;
+        case COUNT_CONTACT_BY_PLACE:
+            countContactByPlace()
             break;
         case EXIT:
             isExit = true
