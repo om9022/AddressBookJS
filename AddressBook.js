@@ -165,6 +165,7 @@ function editConatct() {
     }
 }
 
+//method to delete contact
 function deleteConatct() {
     let contactName = prompt("Enter name of contact which you want to delete: ")
     let isdelete = false
@@ -182,12 +183,31 @@ function deleteConatct() {
     }
 }
 
+//method to add contact and check duplicate entries
+function addContact() {
+    let newContact = createContatct()
+    let alreadyExists = addressBook.filter(contact => contact.firstName == newContact.firstName).length
+    if (alreadyExists) {
+        console.log("Conatct already exists");
+    } else {
+        addressBook.push(newContact)
+        console.log("Added sucessfully");
+    }
+
+}
+
+//method to count number of contact
+function countContact() {
+    let numberOfContact = addressBook.map(contact => contact).reduce(numberOfContact => numberOfContact+1,0)
+    console.log("Number of contacts are "+numberOfContact);     
+}
 // Main method 
 const ADD_CONTACT = 1
 const DISPLAY_CONTACT = 2
 const EDIT_CONTACT = 3
 const DELETE_CONTACT = 4
-const EXIT   = 5
+const COUNT_CONTACT = 5
+const EXIT   = 6
 let addressBook  = new Array()
 console.log("Welcome to address book");
 let isExit = false
@@ -196,12 +216,13 @@ while (!isExit) {
     console.log("2 Display Contact");
     console.log("3 Edit Contact");
     console.log("4 Delete Contact");
-    console.log("5 Exit");
+    console.log("5 Count Contact");
+    console.log("6 Exit");
     let choice = prompt("Enter your choice ")
     switch (Number(choice)) {
         case ADD_CONTACT:
             try{
-            addressBook.push(createContatct())
+                addContact()
             } 
             catch (error) {
             console.log(error);
@@ -215,6 +236,9 @@ while (!isExit) {
             break;
         case DELETE_CONTACT:
             deleteConatct()
+            break;
+        case COUNT_CONTACT:
+            countContact()
             break;
         case EXIT:
             isExit = true
