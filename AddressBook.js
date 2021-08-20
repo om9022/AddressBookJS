@@ -226,6 +226,15 @@ function countContactByPlace() {
     console.log("Number of contacts are "+numberOfContact);
 }
 
+function sortByName() {
+    let arrray  = addressBook.sort(function (contact1,contact2){
+        let a = contact1.firstName.toUpperCase()
+        let b = contact2.firstName.toUpperCase()
+        return a == b ? 0 : a > b ? 1: -1;
+    })
+    console.log(addressBook.toString());
+}
+
 // Main method 
 const ADD_CONTACT = 1
 const DISPLAY_CONTACT = 2
@@ -235,7 +244,8 @@ const COUNT_CONTACT = 5
 const SEARCH_CONTACT = 6
 const VIEW_CONTACT = 7
 const COUNT_CONTACT_BY_PLACE = 8
-const EXIT = 9
+const SORT_BY_PERSON_NAME = 9
+const EXIT = 10
 let addressBook  = new Array()
 console.log("Welcome to address book");
 let isExit = false
@@ -248,7 +258,8 @@ while (!isExit) {
     console.log("6 Search Contact by city or state");
     console.log("7 View Contact by city or state");
     console.log("8 Count Contact by city or state");
-    console.log("9 Exit");
+    console.log("9 Sort by person name");
+    console.log("10 Exit");
     let choice = prompt("Enter your choice ")
     switch (Number(choice)) {
         case ADD_CONTACT:
@@ -279,6 +290,9 @@ while (!isExit) {
             break;
         case COUNT_CONTACT_BY_PLACE:
             countContactByPlace()
+            break;
+        case SORT_BY_PERSON_NAME:
+            sortByName()
             break;
         case EXIT:
             isExit = true
