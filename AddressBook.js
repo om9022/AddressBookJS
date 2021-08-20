@@ -202,10 +202,21 @@ function countContact() {
     console.log("Number of contacts are "+numberOfContact);     
 }
 
-function searchContact() {
+function search() {
     let searchKey = prompt("Enter city or state of contact which you want to search: ")
-    let searchResultList = addressBook.filter(contact => contact.city == searchKey || contact.state == searchKey)
-    console.log(`The person having ${searchKey} are ${searchResultList.map(contact => contact.firstName)}`)
+    return addressBook.filter(contact => contact.city == searchKey || contact.state == searchKey)
+}
+
+//method to search contact
+function searchContact() {
+    let searchResultList = search()
+    console.log(`The person are ${searchResultList.map(contact => contact.firstName)}`)
+}
+
+//method to view contact
+function viewContact() {
+    let searchResultList = search()
+    console.log(`The person are ${searchResultList}`)
 }
 
 // Main method 
@@ -215,10 +226,9 @@ const EDIT_CONTACT = 3
 const DELETE_CONTACT = 4
 const COUNT_CONTACT = 5
 const SEARCH_CONTACT = 6
-const EXIT = 7
+const VIEW_CONTACT = 7
+const EXIT = 8
 let addressBook  = new Array()
-addressBook.push(new Contact("Jayesh","Mali","Addr","kharghar","Maharashta","123 321","90 9087654321","jayesh@mail.com"))
-addressBook.push(new Contact("Omkar","Chikane","Addr","Panvel","Maharashta","133 121","90 9912345678","omkar@gmail.com"))
 console.log("Welcome to address book");
 let isExit = false
 while (!isExit) {
@@ -228,7 +238,8 @@ while (!isExit) {
     console.log("4 Delete Contact");
     console.log("5 Count Contact");
     console.log("6 Search Contact by city or state");
-    console.log("7 Exit");
+    console.log("7 View Contact by city or state");
+    console.log("8 Exit");
     let choice = prompt("Enter your choice ")
     switch (Number(choice)) {
         case ADD_CONTACT:
@@ -253,6 +264,9 @@ while (!isExit) {
             break;
         case SEARCH_CONTACT:
             searchContact()
+            break;
+        case VIEW_CONTACT:
+            viewContact()
             break;
         case EXIT:
             isExit = true
