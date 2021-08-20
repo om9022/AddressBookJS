@@ -1,4 +1,4 @@
-console.log("Welcome to address book");
+const prompt = require("prompt-sync")();
 class Contact{
     //constructor
     constructor(...params)
@@ -12,17 +12,17 @@ class Contact{
         this.phoneNumber = params[6]
         this.email = params[7]
     }
-
+    
     checkName(name) {
         let nameRegex = RegExp("^[A-Z]{1}[a-z]{2,}$")
         if (nameRegex.test(name)) {
             return true
         }
         else{
-          return false
+            return false
         } 
     }
-
+    
     //gettters and setters
     get firstName(){ return this._firstName}
     set firstName(firstName){ 
@@ -34,7 +34,7 @@ class Contact{
             throw "First name is incorrect"
         }
     }
-
+    
     get lastName(){ return this._lastName}
     set lastName(lastName){ 
         if (this.checkName(lastName))
@@ -47,12 +47,12 @@ class Contact{
     }
     
     checkaddress(address){ 
-        let addressRegex = RegExp("^[A-z]{4,}$")
+        let addressRegex = RegExp("^[A-z0-9]{4,}$")
         if (addressRegex.test(address)) {
             return true
         }
         else{
-          return false
+            return false
         } 
     }
 
@@ -66,7 +66,7 @@ class Contact{
             throw "Address is incorrect"
         }
     }
-
+    
     get city(){ return this._city}
     set city(city){ 
         if (this.checkaddress(city))
@@ -77,7 +77,7 @@ class Contact{
             throw "City is incorrect"
         }
     }
-   
+    
     get state(){ return this._state}
     set state(state){ 
         if (this.checkaddress(state))
@@ -88,7 +88,7 @@ class Contact{
             throw "State is incorrect"
         }
     }
-
+    
     get zip(){ return this._zip}
     set zip(zip){ 
         let zipRegex = RegExp("^[0-9]{3}[ ]?[0-9]{3}$")
@@ -121,17 +121,54 @@ class Contact{
             throw "email is incorrect"
         }
     }
-
+    
     //to string method 
     toString(){
         return `Name: ${this.firstName} ${this.lastName} Address: ${this.address} ${this.city} ${this.state} ${this.zip} phone number: ${this.phoneNumber} email: ${this.email}`
     }
 }
 
-try {
-    
-    let contact = new Contact("Max","Well","Panvel","Mumbai","Maha","123 432","91 9876543210","abc@gmail.com")
-    console.log(contact.toString());
-} catch (error) {
-    console.log(error);
+//function to create contact
+function createContatct() {
+    let firstName = prompt("Enter First Name ");
+    let lastName = prompt("Enter last Name ");
+    let address = prompt("Enter Address ");
+    let city = prompt("Enter City ");
+    let state = prompt("Enter State ");
+    let zip = prompt("Enter Zip ");
+    let phoneNumber = prompt("Enter phone number ");
+    let email = prompt("Enter Email address ");
+    return new Contact(firstName,lastName,address,city,state,zip,phoneNumber,email)
 }
+
+// Main method 
+let addressBook  = new Array()
+console.log("Welcome to address book");
+let isExit = false
+while (!isExit) {
+    console.log("1 Add Contact");
+    console.log("2 Display Contact");
+    console.log("3 Exit");
+    let choice = prompt("Enter your choice ")
+    switch (choice) {
+        case "1":
+            try{
+            addressBook.push(createContatct())
+            } 
+            catch (error) {
+            console.log(error);
+            }
+            break;
+        case "2":
+            console.log(addressBook);
+            break;
+        case "3":
+            isExit = true
+            break
+        default:
+            console.log("Invalid Option");
+            break;
+    }
+    
+}
+
