@@ -124,7 +124,7 @@ class Contact{
     
     //to string method 
     toString(){
-        return `Name: ${this.firstName} ${this.lastName} Address: ${this.address} ${this.city} ${this.state} ${this.zip} phone number: ${this.phoneNumber} email: ${this.email}`
+        return `\n Name: ${this.firstName} ${this.lastName} Address: ${this.address} ${this.city} ${this.state} ${this.zip} phone number: ${this.phoneNumber} email: ${this.email} `
     }
 }
 
@@ -165,11 +165,29 @@ function editConatct() {
     }
 }
 
+function deleteConatct() {
+    let contactName = prompt("Enter name of contact which you want to delete: ")
+    let isdelete = false
+    for( var index = 0; index < addressBook.length; index++){ 
+        if ( addressBook[index].firstName == contactName) { 
+            addressBook.splice(index, 1); 
+            isdelete = true
+            index--
+        }
+    }
+    if (isdelete) {
+        console.log("deleted sucessfully");
+    } else {
+        console.log("contact not found")
+    }
+}
+
 // Main method 
 const ADD_CONTACT = 1
 const DISPLAY_CONTACT = 2
 const EDIT_CONTACT = 3
-const EXIT   = 4
+const DELETE_CONTACT = 4
+const EXIT   = 5
 let addressBook  = new Array()
 console.log("Welcome to address book");
 let isExit = false
@@ -177,7 +195,8 @@ while (!isExit) {
     console.log("1 Add Contact");
     console.log("2 Display Contact");
     console.log("3 Edit Contact");
-    console.log("4 Exit");
+    console.log("4 Delete Contact");
+    console.log("5 Exit");
     let choice = prompt("Enter your choice ")
     switch (Number(choice)) {
         case ADD_CONTACT:
@@ -194,9 +213,12 @@ while (!isExit) {
         case EDIT_CONTACT:
             editConatct()
             break;
+        case DELETE_CONTACT:
+            deleteConatct()
+            break;
         case EXIT:
             isExit = true
-            break
+            break;
         default:
             console.log("Invalid Option");
             break;
