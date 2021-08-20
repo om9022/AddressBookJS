@@ -141,17 +141,46 @@ function createContatct() {
     return new Contact(firstName,lastName,address,city,state,zip,phoneNumber,email)
 }
 
+//function to edit contact
+function editConatct() {
+    let contactName = prompt("Enter name of contact which you want to edit: ")
+    let contact = addressBook.find(contact => contact.firstName == contactName)
+    if (contact == undefined) {
+        console.log("Contact not found ");
+    }
+    else{
+        try{
+            contact.firstName = prompt("Enter First Name ");
+            contact.lastName = prompt("Enter last Name ");
+            contact.address = prompt("Enter Address ");
+            contact.city = prompt("Enter City ");
+            contact.state = prompt("Enter State ");
+            contact.zip = prompt("Enter Zip ");
+            contact.phoneNumber = prompt("Enter phone number ");
+            contact.email = prompt("Enter Email address ");
+        }
+        catch(error){
+            console.error(error);
+        }
+    }
+}
+
 // Main method 
+const ADD_CONTACT = 1
+const DISPLAY_CONTACT = 2
+const EDIT_CONTACT = 3
+const EXIT   = 4
 let addressBook  = new Array()
 console.log("Welcome to address book");
 let isExit = false
 while (!isExit) {
     console.log("1 Add Contact");
     console.log("2 Display Contact");
-    console.log("3 Exit");
+    console.log("3 Edit Contact");
+    console.log("4 Exit");
     let choice = prompt("Enter your choice ")
-    switch (choice) {
-        case "1":
+    switch (Number(choice)) {
+        case ADD_CONTACT:
             try{
             addressBook.push(createContatct())
             } 
@@ -159,10 +188,13 @@ while (!isExit) {
             console.log(error);
             }
             break;
-        case "2":
-            console.log(addressBook);
+        case DISPLAY_CONTACT:
+            console.log(addressBook.toString());
             break;
-        case "3":
+        case EDIT_CONTACT:
+            editConatct()
+            break;
+        case EXIT:
             isExit = true
             break
         default:
