@@ -198,17 +198,27 @@ function addContact() {
 
 //method to count number of contact
 function countContact() {
-    let numberOfContact = addressBook.map(contact => contact).reduce(numberOfContact => numberOfContact+1,0)
+    let numberOfContact = addressBook.reduce(numberOfContact => numberOfContact+1,0)
     console.log("Number of contacts are "+numberOfContact);     
 }
+
+function searchContact() {
+    let searchKey = prompt("Enter city or state of contact which you want to search: ")
+    let searchResultList = addressBook.filter(contact => contact.city == searchKey || contact.state == searchKey)
+    console.log(`The person having ${searchKey} are ${searchResultList.map(contact => contact.firstName)}`)
+}
+
 // Main method 
 const ADD_CONTACT = 1
 const DISPLAY_CONTACT = 2
 const EDIT_CONTACT = 3
 const DELETE_CONTACT = 4
 const COUNT_CONTACT = 5
-const EXIT   = 6
+const SEARCH_CONTACT = 6
+const EXIT = 7
 let addressBook  = new Array()
+addressBook.push(new Contact("Jayesh","Mali","Addr","kharghar","Maharashta","123 321","90 9087654321","jayesh@mail.com"))
+addressBook.push(new Contact("Omkar","Chikane","Addr","Panvel","Maharashta","133 121","90 9912345678","omkar@gmail.com"))
 console.log("Welcome to address book");
 let isExit = false
 while (!isExit) {
@@ -217,7 +227,8 @@ while (!isExit) {
     console.log("3 Edit Contact");
     console.log("4 Delete Contact");
     console.log("5 Count Contact");
-    console.log("6 Exit");
+    console.log("6 Search Contact by city or state");
+    console.log("7 Exit");
     let choice = prompt("Enter your choice ")
     switch (Number(choice)) {
         case ADD_CONTACT:
@@ -239,6 +250,9 @@ while (!isExit) {
             break;
         case COUNT_CONTACT:
             countContact()
+            break;
+        case SEARCH_CONTACT:
+            searchContact()
             break;
         case EXIT:
             isExit = true
